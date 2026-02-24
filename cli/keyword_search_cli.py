@@ -2,6 +2,7 @@
 
 import argparse
 import json
+from libs.search_func import search_command
 
 
 def main() -> None:
@@ -19,12 +20,8 @@ def main() -> None:
     match args.command:
         case "search":
             print(f'Searching for: {args.query}')
-            results = []
-            for movie in data["movies"]:
-                if args.query in movie["title"]:
-                    results.append(movie)
-            results.sort(key=lambda m: m["id"])
-            results = results[:5]
+            results = search_command(data, args.query)
+            # print(results)
             for i in range(len(results)):
                 print(f"{i+1}. {results[i]['title']}")
 
